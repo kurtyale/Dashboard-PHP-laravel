@@ -48,6 +48,15 @@ class UmidadeService
             ->groupBy('nome', Temperature::raw('DAYNAME(timedata)'))
             ->get();
 
+
+        $datasetmin = $query
+            ->select('nome', Temperature::raw('MIN(temperatura) as min_temperatura'), Temperature::raw('DAYNAME(timedata) as dia_semana'))
+            ->whereRaw('WEEK(timedata, 1) = WEEK(CURDATE(), 1)')
+            ->groupBy('nome', Temperature::raw('DAYNAME(timedata)'))
+            ->get();
+
+
+
         $datasets = [];
         $labels = [];
         $nome = [];
@@ -62,6 +71,7 @@ class UmidadeService
             }
         }
 
+
         for ($i = 0; $i < count($nome); $i++) {
 
             $temperaturas = array_fill(0, 5, null);
@@ -73,7 +83,7 @@ class UmidadeService
                 }
             }
             $alpha += 0.1;
-            $backgroundColor = "rgba(235, 22, 22, {$alpha})";
+            $backgroundColor = "rgba(231, 78, 15 , {$alpha})";
             $objeto = [
                 "label" => $nome[$i],
                 "data" => $temperaturas,

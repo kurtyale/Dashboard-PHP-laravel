@@ -12,8 +12,8 @@
                     $nome = $user->name;
                 @endphp
 
-                <a href="/dashboard" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                    <span class="d-none d-lg-inline-flex">{{ $nome }}</span>
+                <a href="/dashboard" class="nav-link " data-bs-toggle="dropdown">
+                    <span class="text-primary d-none d-lg-inline-flex">{{ $nome }}</span>
                 </a>
             @endif
         </div>

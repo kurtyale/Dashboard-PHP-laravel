@@ -16,7 +16,6 @@ class UmidadeController extends Controller
 
         $umidades = $umidadeService->search();
         $qtdSensores = $umidadeService->Sensores(); // chamar o método Sensores() para obter a quantidade de sensores
-        $datasets   = $umidadeService->MaxTempSemana();
 
         return view('index', [
             'umidades' => $umidades,
