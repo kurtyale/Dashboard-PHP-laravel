@@ -30,6 +30,8 @@ Route::middleware([
 
 Route::get('/dashboard', [UmidadeController::class, 'index'])->name('umidade')->middleware('auth');
 Route::get('/get_chart_data', [UmidadeController::class, 'getData']);
+Route::get('/get_chart_umidade', [UmidadeController::class, 'getUmidade']);
+
 
 Route::fallback(function () {
     return view('404');

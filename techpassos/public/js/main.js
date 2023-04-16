@@ -76,51 +76,25 @@
         });
     });
 
-
     // Worldwide Sales Chart
 
 
 
     // Salse & Revenue Chart
-    var ctx2 = $("#salse-revenue").get(0).getContext("2d");
-    var myChart2 = new Chart(ctx2, {
-        type: "bar",
-        data: {
-            labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho'],
-            datasets: [{
-                    label: 'Temperatura máxima',
-                    data: [30, 32, 35, 33, 28, 25],
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)', // cor da barra de temperatura máxima
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Temperatura mínima',
-                    data: [22, 24, 25, 23, 20, 18],
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)', // cor da barra de temperatura mínima
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                },
-                {
-                    label: 'Temperatura mínima',
-                    data: [22, 24, 25, 23, 20, 18],
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)', // cor da barra de temperatura mínima
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }
-            ]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
+    Chart.defaults.color = "#6C7293";
+    Chart.defaults.borderColor = "#000000";
 
+    $.get('/get_chart_umidade', {}, function(response) {
+        console.log(response);
+        var ctx1 = $("#salse-revenue").get(0).getContext("2d");
+        var myChart1 = new Chart(ctx1, {
+            type: "bar",
+            data: response,
+            options: {
+                responsive: true
+            }
+        });
+    });
 
     /*
         // Single Line Chart

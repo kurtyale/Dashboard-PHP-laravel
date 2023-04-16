@@ -627,6 +627,10 @@ progress {
     color: #6c757d
 }
 
+.my-div {
+    max-height: 100px;
+}
+
 .container,
 .container-fluid,
 .container-sm,
@@ -1505,7 +1509,7 @@ progress {
     }
     .col-xl-12 {
         flex: 0 0 auto;
-        width: 100%
+        width: 100%;
     }
     .offset-xl-0 {
         margin-left: 0

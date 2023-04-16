@@ -30,6 +30,12 @@ class UmidadeController extends Controller
         return response()->json($response);
     }
 
+    public function getUmidade(Request $request){
+        $id = $request->id;
+        $response = UmidadeService::MaxUmidSemana();
+        return response()->json($response);
+    }
+
 
 
     /**
