@@ -67,33 +67,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6 col-xl-3">
+                        <div class="col-sm-6 col-xl-9">
                             <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
                                 <i class="fa fa-chart-bar fa-3x text-red"></i>
                                 <div class="ms-3 text-center">
                                     <p class="mb-2">Sensores ativos</p>
-                                    <div class="bg-secondary rounded d-flex align-items-center justify-content-center">
-                                        <h6 class="mb-2 my-auto">{{ $qtdSensores[0]->Sensores }}</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-xl-3">
-                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                                <i class="fa fa-chart-area fa-3x text-primary"></i>
-                                <div class="ms-3 text-center">
-                                    <p class="mb-2">Sensores ativos</p>
-                                    <div class="bg-secondary rounded d-flex align-items-center justify-content-center">
-                                        <h6 class="mb-2 my-auto">{{ $qtdSensores[0]->Sensores }}</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-xl-3">
-                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                                <i class="fa fa-chart-pie fa-3x text-primary"></i>
-                                <div class="ms-3 text-center">
-                                    <p class="mb-2">Sensores</p>
                                     <div class="bg-secondary rounded d-flex align-items-center justify-content-center">
                                         <h6 class="mb-2 my-auto">{{ $qtdSensores[0]->Sensores }}</h6>
                                     </div>
@@ -151,13 +129,13 @@
                                 <tbody>
                                     <tr>
                                         <a href="{{ route('dashboard') }}"></a>
-                                        @foreach ($umidades as $umidade)
+                                        @foreach ($umidades as $response)
                                     <tr>
-                                        <td>{{ $umidade->nome }}</td>
-                                        <td>{{ $umidade->maxtemperatura }}</td>
-                                        <td>{{ $umidade->mintemperatura }}</td>
-                                        <td>{{ $umidade->maxumidade }}</td>
-                                        <td>{{ $umidade->minumidade }}</td>
+                                        <td>{{ $response->nome }}</td>
+                                        <td>{{ $response->maxtemperatura }}</td>
+                                        <td>{{ $response->mintemperatura }}</td>
+                                        <td>{{ $response->maxumidade }}</td>
+                                        <td>{{ $response->minumidade }}</td>
                                     </tr>
                                     @endforeach
 
@@ -207,6 +185,6 @@
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
-        </body>
+
 
     </x-app-layout>

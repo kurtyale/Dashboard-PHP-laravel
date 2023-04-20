@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TabelaController;
 use App\Http\Controllers\TemperaturaController;
 use App\Http\Controllers\UmidadeController;
 use App\Services\UmidadeService;
@@ -32,6 +33,8 @@ Route::get('/dashboard', [UmidadeController::class, 'index'])->name('umidade')->
 Route::get('/get_chart_data', [UmidadeController::class, 'getData']);
 Route::get('/get_chart_umidade', [UmidadeController::class, 'getUmidade']);
 
+Route::get('/tabela', [TabelaController::class, 'gettabela']);
+Route::get('/nomes', [TabelaController::class, 'getnomes'])->name('nomes');
 
 Route::fallback(function () {
     return view('404');

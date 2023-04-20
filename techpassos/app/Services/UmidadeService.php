@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Models\Temperature;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Termwind\Components\Dd;
 
 class UmidadeService
 {
@@ -126,8 +126,13 @@ class UmidadeService
     {
         $query = Temperature::query();
 
+
         $dataset = $query
-            ->select('nome', Temperature::raw('MAX(umidade) as max_umidade'), Temperature::raw("DATE_FORMAT(timedata, '%d/%m/%Y') as dia_semana"))
+            ->select(
+                'nome',
+                Temperature::raw('MAX(umidade) as max_umidade'),
+                Temperature::raw("DATE_FORMAT(timedata, '%d/%m/%Y') as dia_semana")
+                )
             ->whereRaw('WEEK(timedata, 1) = WEEK(CURDATE(), 1)')
             ->groupBy('nome', Temperature::raw("DATE_FORMAT(timedata, '%d/%m/%Y')"))
             ->get();
