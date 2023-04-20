@@ -11,6 +11,19 @@
     };
     spinner();
 
+    $('#btnBuscar').click(function() {
+        var request = {
+            dataInicio: $('#calender').data().date,
+            dataFim: $('#calender2').data().date,
+            checkboxes: $('input[type="checkbox"]:checked'),
+        }
+
+
+        console.log(request.checkboxes);
+        console.log(request.dataInicio);
+        console.log(request.dataFim);
+    });
+
 
     // Back to top button
     $(window).scroll(function() {
@@ -46,6 +59,12 @@
         inline: true,
         format: 'L'
     });
+
+    $('#calender2').datetimepicker({
+        inline: true,
+        format: 'L'
+    });
+
 
 
     // Testimonials carousel
