@@ -5,6 +5,8 @@ use App\Http\Controllers\TemperaturaController;
 use App\Http\Controllers\UmidadeController;
 use App\Services\UmidadeService;
 use Illuminate\Support\Facades\Route;
+use Jetstream\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\MyPasswordController;
 
 
 /*
@@ -23,7 +25,7 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
-])->group(function () {
+    ])->group(function () {
     Route::get('/', function () {
         return view('dashboard');
     })->name('dashboard');
@@ -39,5 +41,6 @@ Route::get('/nomes', [TabelaController::class, 'getnomes'])->name('nomes');
 Route::fallback(function () {
     return view('404');
 });
+
 
 Route::redirect('/', '/dashboard');

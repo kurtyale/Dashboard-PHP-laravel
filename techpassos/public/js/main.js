@@ -11,6 +11,34 @@
     };
     spinner();
 
+    function getWeather() {
+        const location = document.getElementById("location").value;
+        const apiKey = "sua chave de API aqui";
+        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const weather = {
+                    temperature: data.main.temp,
+                    description: data.weather[0].description,
+                    icon: data.weather[0].icon,
+                };
+                displayWeather(weather);
+            })
+            .catch(error => console.error(error));
+    }
+
+    function displayWeather(weather) {
+        const weatherElement = document.getElementById("weather");
+        weatherElement.innerHTML = `
+          <img src="https://openweathermap.org/img/w/${weather.icon}.png" alt="Ícone do tempo">
+          <p>${weather.temperature}°C</p>
+          <p>${weather.description}</p>
+        `;
+    }
+
+
     $('#btnBuscar').click(function() {
         var request = {
             dataInicio: $('#calender').data().date,

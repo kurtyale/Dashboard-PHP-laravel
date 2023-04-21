@@ -20,7 +20,14 @@
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
+
                 <div class="navbar-nav align-items-center ms-auto">
+                    <div class="ms-3 text-center">
+                        <div class="bg-secondary rounded d-flex align-items-center justify-content-center">
+                            <span class="d-none d-lg-inline-flex">Sensores ativos &nbsp</span>
+                            <h6 class="d-none d-lg-inline-flex">{{ $qtdSensores[0]->Sensores }}</h6>
+                        </div>
+                    </div>
                     <div class="nav-item dropdown">
                         <div class="nav-item dropdown">
                             @if (Auth::check())
@@ -33,17 +40,54 @@
                                 @if (Route::has('login'))
                                     <div class="dropdown-item">
                                         @auth
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                                                {{ csrf_field() }}
-                                                <button type="submit">Logout</button>
-                                            </form>
-                                        @else
-                                            <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
 
-                                            @if (Route::has('register'))
-                                                <a href="{{ route('register') }}"
-                                                    class="ml-4 text-sm text-gray-700 underline">Register</a>
+
+                                            @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
+                                                <button
+                                                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                                    <img class="h-8 w-8 rounded-full object-cover"
+                                                        src="{{ Auth::user()->profile_photo_url }}"
+                                                        alt="{{ Auth::user()->name }}" />
+                                                </button>
+                                            @else
+                                                <!-- Account Management -->
+                                                <div class="block px-4 py-2 text-xs text-gray-400">
+                                                    {{ __('Conta') }}
+                                                </div>
+
+                                                <x-dropdown-link href="{{ route('profile.show') }}">
+                                                    {{ __('Perfil') }}
+                                                </x-dropdown-link>
+
+                                                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                                                    <x-dropdown-link href="{{ route('api-tokens.index') }}">
+                                                        {{ __('API Tokens') }}
+                                                    </x-dropdown-link>
+                                                @endif
+
+                                                <div class="border-t border-gray-200 dark:border-gray-600"></div>
+
+                                                <!-- Authentication -->
+                                                <form method="POST" action="{{ route('logout') }}" x-data>
+                                                    @csrf
+
+                                                    <x-dropdown-link href="{{ route('logout') }}"
+                                                        @click.prevent="$root.submit();">
+                                                        {{ __('Log Out') }}
+                                                    </x-dropdown-link>
+                                                </form>
                                             @endif
+
+
+
+                                        </div>
+                                    @else
+                                        <a href="{{ route('login') }}" class="text-sm text-gray-700 underline">Login</a>
+
+                                        @if (Route::has('register'))
+                                            <a href="{{ route('register') }}"
+                                                class="ml-4 text-sm text-gray-700 underline">Register</a>
+                                        @endif
                                     @endif
                                 </div>
                                 @endif
@@ -52,35 +96,6 @@
                     </div>
                 </nav>
                 <!-- Navbar End -->
-
-                <!-- Sale & Revenue Start -->
-                <div class="container-fluid pt-4 px-4">
-                    <div class="row g-4">
-                        <div class="col-sm-6 col-xl-3">
-                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                                <i class="fa fa-chart-line fa-3x text-body"></i>
-                                <div class="ms-3 text-center">
-                                    <p class="mb-2">Sensores ativos</p>
-                                    <div class="bg-secondary rounded d-flex align-items-center justify-content-center">
-                                        <h6 class="mb-2 my-auto">{{ $qtdSensores[0]->Sensores }}</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-xl-9">
-                            <div class="bg-secondary rounded d-flex align-items-center justify-content-between p-4">
-                                <i class="fa fa-chart-bar fa-3x text-red"></i>
-                                <div class="ms-3 text-center">
-                                    <p class="mb-2">Sensores ativos</p>
-                                    <div class="bg-secondary rounded d-flex align-items-center justify-content-center">
-                                        <h6 class="mb-2 my-auto">{{ $qtdSensores[0]->Sensores }}</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Sale & Revenue End -->
 
 
                 <!-- Sales Chart Start -->
@@ -171,7 +186,7 @@
             <!-- Back to Top -->
             <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
         </div>
-
+        </div>
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -185,6 +200,4 @@
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
-
-
     </x-app-layout>
