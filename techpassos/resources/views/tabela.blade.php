@@ -72,37 +72,29 @@
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-4 col-xl-4">
-                            <div  style="height: 320px; overflow: auto;" class="bg-secondary rounded p-4" >
-                            <div class="h-100 bg-secondary rounded p-4">
-                                <div class="d-flex align-items-center justify-content-between mb-4">
-                                    <h6 class="mb-0">Lista de Sensores</h6>
-                                    <div class="d-flex mb-2">
-                                        <button type="button" class="btn btn-primary ms-2" id="btnBuscar">buscar</button>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex align-items-center border-bottom py-2">
-                                    <input class="form-check-input m-0" type="checkbox" checked>
-                                    <div class="w-100 ms-3">
-                                        <div class="d-flex w-100 align-items-center justify-content-between">
-                                            <span>Todos os sensores</span>
+                            <div style="height: 320px; overflow: auto;" class="bg-secondary rounded p-4">
+                                <div class="h-100 bg-secondary rounded p-4">
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <h6 class="mb-0">Lista de Sensores</h6>
+                                        <div class="d-flex mb-2">
+                                            <button type="button" class="btn btn-primary ms-2" id="btnBuscar">buscar</button>
                                         </div>
                                     </div>
-                                </div>
-                                <a href="/nomes"></a>
-                                @foreach ($tabela as $nome)
+
+                                    @foreach ($nomes as $nome)
                                     <div class="d-flex align-items-center border-bottom py-2">
-                                        <input class="form-check-input m-0" type="checkbox">
+                                        <input class="form-check-input m-0" type="checkbox" value="{{ $nome->nome }}">
                                         <div class="w-100 ms-3">
                                             <div class="d-flex w-100 align-items-center justify-content-between">
                                                 <span>{{ $nome->nome }}</span>
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                        </div>
+
 
 
                         <!-- Table Start -->
@@ -110,22 +102,28 @@
                             <div class="row g-4">
                                 <div class="col-12">
                                     <div class="bg-secondary rounded h-100 p-4">
-                                        <h6 class="mb-4">Relatorio de Dados</h6>
+                                        <div class="d-flex align-items-center justify-content-between mb-4">
+                                            <h6 class="mb-0">Relatório de dados coletados</h6>
+                                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                                <button type="button" class="btn btn-primary ms-2"
+                                                    id="btnImprimir">PDF</button>
+                                                <button type="button" class="btn btn-primary ms-2"
+                                                id="export-btn">Excel</button>
+                                            </div>
+                                        </div>
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">nome</th>
+                                                        <th scope="col">Nome</th>
                                                         <th scope="col">Temperatura</th>
-                                                        <th scope="col">umidade</th>
-                                                        <th scope="col">data</th>
-                                                        <th scope="col">hora</th>
+                                                        <th scope="col">Umidade</th>
+                                                        <th scope="col">Data</th>
+                                                        <th scope="col">Hora</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <a href="{{ route('dashboard') }}"></a>
-
+                                                <tbody id="table-body">
+                                                    <!-- Aqui serão adicionadas as linhas da tabela -->
                                                 </tbody>
                                             </table>
                                         </div>
@@ -163,6 +161,8 @@
                 </div>
 
                 <!-- JavaScript Libraries -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.6/xlsx.full.min.js"></script>
                 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
                 <script src="lib/chart/chart.min.js"></script>

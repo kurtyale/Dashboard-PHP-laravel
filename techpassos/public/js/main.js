@@ -11,34 +11,6 @@
     };
     spinner();
 
-    function getWeather() {
-        const location = document.getElementById("location").value;
-        const apiKey = "sua chave de API aqui";
-        const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
-
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                const weather = {
-                    temperature: data.main.temp,
-                    description: data.weather[0].description,
-                    icon: data.weather[0].icon,
-                };
-                displayWeather(weather);
-            })
-            .catch(error => console.error(error));
-    }
-
-    function displayWeather(weather) {
-        const weatherElement = document.getElementById("weather");
-        weatherElement.innerHTML = `
-          <img src="https://openweathermap.org/img/w/${weather.icon}.png" alt="Ícone do tempo">
-          <p>${weather.temperature}°C</p>
-          <p>${weather.description}</p>
-        `;
-    }
-
-
     $('#btnBuscar').click(function() {
         var request = {
             dataInicio: $('#calender').data().date,
@@ -46,10 +18,74 @@
             checkboxes: $('input[type="checkbox"]:checked'),
         }
 
+        var nomesSelecionados = [];
+        request.checkboxes.each(function() {
+            nomesSelecionados.push($(this).val());
+        });
 
-        console.log(request.checkboxes);
-        console.log(request.dataInicio);
-        console.log(request.dataFim);
+        $.ajax({
+            url: '/tabela',
+            method: 'GET',
+            data: {
+                dataInicio: request.dataInicio,
+                dataFim: request.dataFim,
+                nomesSelecionados: nomesSelecionados
+            },
+            success: function(data) {
+                var tabela = data.tabela;
+                var nomes = data.nomes;
+                var tableHTML = '';
+
+                // Loop através dos dados recebidos e construção da tabela em HTML
+                $.each(tabela, function(index, row) {
+                    tableHTML += '<tr>';
+                    tableHTML += '<td>' + row.nome + '</td>';
+                    tableHTML += '<td>' + row.temperatura + '</td>';
+                    tableHTML += '<td>' + row.umidade + '</td>';
+                    tableHTML += '<td>' + row.data + '</td>';
+                    tableHTML += '<td>' + row.hora + '</td>';
+                    tableHTML += '</tr>';
+                });
+
+                // Adicionar a tabela no elemento com id "table-body"
+                $('#table-body').html(tableHTML);
+
+                // Loop através dos nomes e construção dos checkboxes em HTML
+                var checkboxesHTML = '';
+                $.each(nomes, function(index, nome) {
+                    checkboxesHTML += '<div class="form-check">';
+                    checkboxesHTML += '<input class="form-check-input" type="checkbox" value="' + nome + '" id="' + nome + '">';
+                    checkboxesHTML += '<label class="form-check-label" for="' + nome + '">';
+                    checkboxesHTML += nome;
+                    checkboxesHTML += '</label>';
+                    checkboxesHTML += '</div>';
+                });
+
+                // Adicionar os checkboxes no elemento com id "checkboxes-div"
+                $('#checkboxes-div').html(checkboxesHTML);
+            },
+
+        });
+
+    });
+
+    $('#btnImprimir').click(function() {
+        $.ajax({
+            url: '/tabela',
+            method: 'GET',
+            data: {
+                dataInicio: $('#calender').data().date,
+                dataFim: $('#calender2').data().date,
+                nomesSelecionados: nomesSelecionados
+            },
+            success: function(data) {
+                // Chamar a função gerarPDF com os dados recebidos
+                gerarPDF(data.tabela);
+            },
+            error: function() {
+                alert('Erro ao buscar dados');
+            }
+        });
     });
 
 
@@ -81,18 +117,21 @@
         });
     }, { offset: '80%' });
 
+    moment.locale('pt-br');
 
     // Calender
     $('#calender').datetimepicker({
         inline: true,
-        format: 'L'
+        format: 'DD/MM/YYYY',
+        locale: 'pt-br',
     });
+
 
     $('#calender2').datetimepicker({
         inline: true,
-        format: 'L'
+        format: 'DD/MM/YYYY',
+        locale: 'pt-br',
     });
-
 
 
     // Testimonials carousel

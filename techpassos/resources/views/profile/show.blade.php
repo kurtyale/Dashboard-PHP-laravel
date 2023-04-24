@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class=" position-relative d-flex p-0">
+    <div class="position-relative d-flex p-0">
         <!-- Content Start -->
         <div class="content">
 

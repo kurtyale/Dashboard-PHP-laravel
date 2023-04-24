@@ -12,10 +12,11 @@
                     $nome = $user->name;
                 @endphp
 
-                <a href="/dashboard" class="nav-link " data-bs-toggle="dropdown">
+                <a href="{{ route('profile.show') }}" class="nav-link " data-bs-toggle="dropdown">
                     <span class="text-primary d-none d-lg-inline-flex">{{ $nome }}</span>
                 </a>
             @endif
+
         </div>
         <div class="navbar-nav w-100">
             <a href="/dashboard" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>

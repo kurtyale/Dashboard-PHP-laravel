@@ -7,26 +7,32 @@ use Illuminate\Http\Request;
 
 class TabelaController extends Controller
 {
-
     public function gettabela(Request $request)
     {
-        $id = $request->id;
-        $tabela = TabelaService::getTodosNomes();
-        $responses = TabelaService::tabelaindex();
+        $nomes = TabelaService::getTodosNomes();
+        $tabela = TabelaService::tabelaindex($request->dataInicio, $request->dataFim, $request->nomesSelecionados);
+
+        if ($request->ajax()) {
+            return response()->json([
+                'nomes' => $nomes,
+                'tabela' => $tabela
+            ]);
+        }
 
         return view('tabela', [
+            'nomes' => $nomes,
             'tabela' => $tabela
         ]);
-
     }
+
 
     public function getnomes(TabelaService $TabelaService)
     {
 
-        $tabela = $TabelaService->getTodosNomes();
+        $nomes = $TabelaService->getTodosNomes();
 
         return view('index', [
-            'tabela' => $tabela
+            'nomes' => $nomes
         ]);
     }
 }

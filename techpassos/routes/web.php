@@ -23,6 +23,7 @@ use App\Http\Controllers\MyPasswordController;
 
 Route::middleware([
     'auth:sanctum',
+    'disable.session.timeout',
     config('jetstream.auth_session'),
     'verified'
     ])->group(function () {
@@ -31,11 +32,13 @@ Route::middleware([
     })->name('dashboard');
 });
 
+
 Route::get('/dashboard', [UmidadeController::class, 'index'])->name('umidade')->middleware('auth');
 Route::get('/get_chart_data', [UmidadeController::class, 'getData']);
 Route::get('/get_chart_umidade', [UmidadeController::class, 'getUmidade']);
 
 Route::get('/tabela', [TabelaController::class, 'gettabela']);
+
 Route::get('/nomes', [TabelaController::class, 'getnomes'])->name('nomes');
 
 Route::fallback(function () {
