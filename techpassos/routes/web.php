@@ -39,6 +39,8 @@ Route::get('/get_chart_umidade', [UmidadeController::class, 'getUmidade']);
 
 Route::get('/tabela', [TabelaController::class, 'gettabela']);
 
+Route::get('/imprimir-pdf', [TabelaController::class, 'ImprimirPDF']);
+
 Route::get('/nomes', [TabelaController::class, 'getnomes'])->name('nomes');
 
 Route::fallback(function () {

@@ -18,7 +18,6 @@ class TabelaService
                 ->select('temperatura', 'umidade', 'nome', Temperature::raw('DATE_FORMAT(timedata, "%d-%m-%Y") as data'), Temperature::raw('TIME(timedata) as hora'))
                 ->whereBetween('timedata', [$dataInicio . ' 00:00:00', $dataFim . ' 23:59:59'])
                 ->get();
-
         } else {
             $dataInicio = date('Y-m-d', strtotime(str_replace('/', '-', $dataInicio)));
             $dataFim = date('Y-m-d', strtotime(str_replace('/', '-', $dataFim)));
@@ -28,8 +27,6 @@ class TabelaService
                 ->whereBetween('timedata', [$dataInicio . ' 00:00:00', $dataFim . ' 23:59:59'])
                 ->whereIn('nome', $nomesSelecionados)
                 ->get();
-
-
         }
 
         return $tabela;
@@ -38,5 +35,35 @@ class TabelaService
     public static function getTodosNomes()
     {
         return Temperature::select('nome')->distinct()->get();
+    }
+
+
+    public static function tabelaPDF($dataInicio, $dataFim, $nomesSelecionados)
+
+    {
+        $nomesSelecionados = explode(',', $nomesSelecionados);
+
+        $query = Temperature::query();
+
+        if (empty($nomesSelecionados)) {
+            $dataInicio = date('Y-m-d', strtotime(str_replace('/', '-', $dataInicio)));
+            $dataFim = date('Y-m-d', strtotime(str_replace('/', '-', $dataFim)));
+
+            $tabela = $query
+                ->select('temperatura', 'umidade', 'nome', Temperature::raw('DATE_FORMAT(timedata, "%d-%m-%Y") as data'), Temperature::raw('TIME(timedata) as hora'))
+                ->whereBetween('timedata', [$dataInicio . ' 00:00:00', $dataFim . ' 23:59:59'])
+                ->get();
+        } else {
+            $dataInicio = date('Y-m-d', strtotime(str_replace('/', '-', $dataInicio)));
+            $dataFim = date('Y-m-d', strtotime(str_replace('/', '-', $dataFim)));
+
+            $tabela = $query
+                ->select('temperatura', 'umidade', 'nome', Temperature::raw('DATE_FORMAT(timedata, "%d-%m-%Y") as data'), Temperature::raw('TIME(timedata) as hora'))
+                ->whereBetween('timedata', [$dataInicio . ' 00:00:00', $dataFim . ' 23:59:59'])
+                ->whereIn('nome', $nomesSelecionados)
+                ->get();
+        }
+
+        return $tabela;
     }
 }

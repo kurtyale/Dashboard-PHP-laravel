@@ -69,24 +69,6 @@
 
     });
 
-    $('#btnImprimir').click(function() {
-        $.ajax({
-            url: '/tabela',
-            method: 'GET',
-            data: {
-                dataInicio: $('#calender').data().date,
-                dataFim: $('#calender2').data().date,
-                nomesSelecionados: nomesSelecionados
-            },
-            success: function(data) {
-                // Chamar a função gerarPDF com os dados recebidos
-                gerarPDF(data.tabela);
-            },
-            error: function() {
-                alert('Erro ao buscar dados');
-            }
-        });
-    });
 
 
     // Back to top button
@@ -271,4 +253,6 @@
         });
 
     */
+
+
 })(jQuery);

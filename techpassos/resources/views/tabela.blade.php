@@ -77,19 +77,22 @@
                                     <div class="d-flex align-items-center justify-content-between mb-4">
                                         <h6 class="mb-0">Lista de Sensores</h6>
                                         <div class="d-flex mb-2">
-                                            <button type="button" class="btn btn-primary ms-2" id="btnBuscar">buscar</button>
+                                            <button type="button" class="btn btn-primary ms-2"
+                                                id="btnBuscar">buscar</button>
+                                                <button type="button" class="btn btn-primary ms-2"
+                                                onclick="imprimirPDF()">PDF</button>
                                         </div>
                                     </div>
 
                                     @foreach ($nomes as $nome)
-                                    <div class="d-flex align-items-center border-bottom py-2">
-                                        <input class="form-check-input m-0" type="checkbox" value="{{ $nome->nome }}">
-                                        <div class="w-100 ms-3">
-                                            <div class="d-flex w-100 align-items-center justify-content-between">
-                                                <span>{{ $nome->nome }}</span>
+                                        <div class="d-flex align-items-center border-bottom py-2">
+                                            <input class="form-check-input m-0" type="checkbox" value="{{ $nome->nome }}">
+                                            <div class="w-100 ms-3">
+                                                <div class="d-flex w-100 align-items-center justify-content-between">
+                                                    <span>{{ $nome->nome }}</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -106,9 +109,7 @@
                                             <h6 class="mb-0">Relatório de dados coletados</h6>
                                             <div class="d-flex align-items-center justify-content-between mb-4">
                                                 <button type="button" class="btn btn-primary ms-2"
-                                                    id="btnImprimir">PDF</button>
-                                                <button type="button" class="btn btn-primary ms-2"
-                                                id="export-btn">Excel</button>
+                                                    id="btnImprimir">Excel</button>
                                             </div>
                                         </div>
                                         <div class="table-responsive">
@@ -161,8 +162,7 @@
                 </div>
 
                 <!-- JavaScript Libraries -->
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.6/xlsx.full.min.js"></script>
+
                 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
                 <script src="lib/chart/chart.min.js"></script>
@@ -172,6 +172,26 @@
                 <script src="lib/tempusdominus/js/moment.min.js"></script>
                 <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
                 <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+                <button onclick="imprimirPDF()">Imprimir</button>
+
+                <script>
+                    function imprimirPDF() {
+                        var dataInicio = $('#calender').data().date;
+                        var dataFim = $('#calender2').data().date;
+                        var checkboxes = $('input[type="checkbox"]:checked');
+                        var nomesSelecionados = [];
+
+                        checkboxes.each(function() {
+                            nomesSelecionados.push($(this).val());
+                        });
+
+                        var url = '/imprimir-pdf?dataInicio=' + dataInicio + '&dataFim=' + dataFim + '&nomesSelecionados=' +
+                            encodeURIComponent(nomesSelecionados.join(','));
+
+                        window.open(url, '_blank');
+                    }
+                </script>
+
 
                 <!-- Template Javascript -->
                 <script src="js/main.js"></script>
