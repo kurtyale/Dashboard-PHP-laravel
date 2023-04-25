@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Relatório de dados coletados</title>
+    <title>Relatório de Leitura</title>
     <!-- Estilos -->
     <style>
         body {
@@ -55,14 +55,6 @@
             margin-top: 40px;
         }
 
-        /* Adicione este código CSS para imprimir o número da página */
-        @page {
-            counter-increment: page;
-            counter-reset: page 1;
-        }
-        .page-number::after {
-            content: "Página " counter(page);
-        }
     </style>
 </head>
 
@@ -96,29 +88,7 @@
         @if (Auth::check())
             <span class="d-none d-lg-inline-flex">Impresso por {{ Auth::user()->name }}</span>
         @endif
-        <p id="data-atual"></p>
 
-        <script>
-            var dataAtual = new Date();
-            var dia = dataAtual.getDate();
-            var mes = dataAtual.getMonth() + 1;
-            var ano = dataAtual.getFullYear();
-            var dataFormatada = dia + '/' + mes + '/' + ano;
-            document.getElementById('data-atual').innerHTML = dataFormatada;
-
-            // Adiciona o número da página atual
-            function adicionarNumeroPagina() {
-                var totalPages = document.querySelectorAll('.page-number').length;
-                var currentPage = document.querySelectorAll('.page-number').length + 1;
-                var currentPageText = 'Página ' + currentPage + ' de ' + totalPages;
-                var pageElement = document.createElement('div');
-                pageElement.classList.add('page-number');
-                pageElement.innerText = currentPageText;
-                document.body.appendChild(pageElement);
-            }
-
-            adicionarNumeroPagina();
-        </script>
     </div>
 </body>
 

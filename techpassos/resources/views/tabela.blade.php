@@ -106,11 +106,7 @@
                                 <div class="col-12">
                                     <div class="bg-secondary rounded h-100 p-4">
                                         <div class="d-flex align-items-center justify-content-between mb-4">
-                                            <h6 class="mb-0">Relatório de dados coletados</h6>
-                                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                                <button type="button" class="btn btn-primary ms-2"
-                                                    id="btnImprimir">Excel</button>
-                                            </div>
+                                            <h6 class="mb-0">Relatório de Leitura</h6>
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table">
@@ -172,7 +168,7 @@
                 <script src="lib/tempusdominus/js/moment.min.js"></script>
                 <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
                 <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-                <button onclick="imprimirPDF()">Imprimir</button>
+
 
                 <script>
                     function imprimirPDF() {
