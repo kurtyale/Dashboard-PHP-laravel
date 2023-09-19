@@ -106,7 +106,7 @@
                                 <div class="col-12">
                                     <div class="bg-secondary rounded h-100 p-4">
                                         <div class="d-flex align-items-center justify-content-between mb-4">
-                                            <h6 class="mb-0">Relatório de Leitura</h6>
+                                            <h5 class="mb-0">Relatório de dados coletados</h5>
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table">

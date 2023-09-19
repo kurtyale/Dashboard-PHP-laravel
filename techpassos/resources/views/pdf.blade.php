@@ -61,7 +61,7 @@
 
 <body>
     <div class="container">
-        <h1>Relatório de dados coletados</h1>
+        <h1>Relatório de Leitura</h1>
         <table>
             <thead>
                 <tr>
